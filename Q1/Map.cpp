@@ -28,21 +28,59 @@ void Map::showMap(){
 }
 
 void Map::findRoute(vector<vector<int>>& mapHeights, pair<int,int>& currentlocation){
-	//if(canMoveRight())
-}
-void Map::showRoute(){
+	this->route.clear();
+	int minDistance = mapHeights.at(0).at(0);
+	this->route.push_back(make_pair(0,0));
+	int rightDistance{}, downDistance{};
+	while(currentLocation.first != (this->mapDimension-1) && currentLocation.second != (this->mapDimension-1)){		
+		if(canMoveRight(currentLocation)){
+			rightDistance = abs(mapHeights.at(currentLocation.first).at(currentLocation.second+1)
+			 - mapHeights.at(currentLocation.first).at(currentLocation.second));
+		}
+		if(canMoveDown(currentLocation)){
+			downDistance = abs(mapHeights.at(currentLocation.first+1).at(currentLocation.second)
+			 - mapHeights.at(currentLocation.first).at(currentLocation.second));
+		}
+		if(canMoveRight(currentLocation) && canMoveDown(currentLocation)){
+			if(downDistance < rightDistance){
+				minDistance = downDistance;
+				this->moveDown(currentLocation);			
+			}		
+			else{				
+				minDistance = rightDistance;
+				this->moveRight(currentLocation);
+			}	
+		}
+		else if(canMoveRight(currentLocation)){
+			minDistance = rightDistance;
+			this->moveRight(currentLocation);
+		}
+		else if(canMoveDown(currentLocation)){
+			minDistance = downDistance;
+			this->moveDown(currentLocation);
+		}
+		
+		route.push_back(currentLocation);
+	}	
+	route.push_back(make_pair(this->mapDimension-1, this->mapDimension-1));
 	
 }
-bool Map::canMoveRight(pair<int,int>& currentlocation){
-	return currentLocation.first < this->mapDimension;
-}	
-bool Map::canMoveDown(pair<int,int>& location){
-	return currentLocation.second < this->mapDimension;
+void Map::showRoute(){
+	this->findRoute(this->mapHeights, this->currentLocation);
+	for(size_t i {0}; i != this->route.size(); i++){
+		cout << this->route.at(i).first << " " << this->route.at(i).second << endl;
+	}
 }
-void Map::moveRight(pair<int,int>& currentLocation){
+bool Map::canMoveDown(pair<int,int>& currentlocation){
+	return currentLocation.first < (this->mapDimension - 1);
+}	
+bool Map::canMoveRight(pair<int,int>& location){
+	return currentLocation.second < (this->mapDimension - 1);
+}
+void Map::moveDown(pair<int,int>& currentLocation){
 	currentLocation.first += 1;
 }
-void Map::moveDown(pair<int,int>& currentlocation){
+void Map::moveRight(pair<int,int>& currentlocation){
 	currentLocation.second += 1;
 }
 

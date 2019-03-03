@@ -7,5 +7,6 @@ int main(){
 	cin >> n;
 	Map map{n};	
 	map.showMap();
+	map.showRoute();
 	return 0;
 }
