@@ -1,9 +1,12 @@
+#ifndef MAP_H
+#define MAP_H
+
 #include "Map.h"
 
 Map::Map(int n){
 	vector<int> rowsOfMap;
 	this->mapDimension = n;
-	this->mapArea = n*n;
+	this->currentLocation = make_pair(0,0);
 	///////////////////// Create the map ////////////////	
 	mapHeights.clear();		
 	for(int i {0}; i != this->mapDimension; i++){
@@ -14,10 +17,8 @@ Map::Map(int n){
 		mapHeights.push_back(rowsOfMap);
 	}
 }
-Map::~Map(){
 
-}
-void Map::showMap(){	
+void Map::showMap(){
 	for(int i {0}; i != this->mapDimension; i++){
 		for(int j {0}; j != this->mapDimension; j++){
 			cout << setfill(' ') << setw(3) << mapHeights.at(i).at(j);
@@ -25,15 +26,29 @@ void Map::showMap(){
 		cout << endl;		
 	}	
 }
-void Map::findRoute(){
 
+void Map::findRoute(vector<vector<int>>& mapHeights, pair<int,int>& currentlocation){
+	//if(canMoveRight())
 }
 void Map::showRoute(){
 	
 }
-void Map::moveRight(){
+bool Map::canMoveRight(pair<int,int>& currentlocation){
+	return currentLocation.first < this->mapDimension;
+}	
+bool Map::canMoveDown(pair<int,int>& location){
+	return currentLocation.second < this->mapDimension;
+}
+void Map::moveRight(pair<int,int>& currentLocation){
+	currentLocation.first += 1;
+}
+void Map::moveDown(pair<int,int>& currentlocation){
+	currentLocation.second += 1;
+}
+
+Map::~Map(){
 
 }
-void Map::moveDown(){
 
-}
+
+#endif
