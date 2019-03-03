@@ -26,8 +26,12 @@ void Map::showMap(){
 		cout << endl;		
 	}	
 }
+bool comp(int a, int b) 
+{ 
+    return (a < b); 
+} 
 
-void Map::findRoute(vector<vector<int>>& mapHeights, pair<int,int>& currentlocation){
+void Map::findRouteWithoutDiagonalMovement(vector<vector<int>>& mapHeights, pair<int,int>& currentlocation){
 	this->route.clear();
 	this->sumOfHeights = 0;
 	int minDistance = mapHeights.at(0).at(0);
@@ -63,11 +67,59 @@ void Map::findRoute(vector<vector<int>>& mapHeights, pair<int,int>& currentlocat
 		this->sumOfHeights += minDistance;
 		route.push_back(currentLocation);
 	}
-	
 }
-void Map::showRoute(){
-	this->findRoute(this->mapHeights, this->currentLocation);
+
+void Map::findRouteWithDiagonalMovement(vector<vector<int>>& mapHeights, pair<int,int>& currentlocation){
+	this->route.clear();
+	this->sumOfHeights = 0;
+	int minDistance = mapHeights.at(0).at(0);
+	this->route.push_back(make_pair(0,0));	
+	int rightDistance{}, downDistance{}, diagonalDistance{};
+	while(currentLocation.first != (this->mapDimension-1) || currentLocation.second != (this->mapDimension-1)){		
+		if(canMoveRight(currentLocation)){
+			rightDistance = abs(mapHeights.at(currentLocation.first).at(currentLocation.second+1)
+			 - mapHeights.at(currentLocation.first).at(currentLocation.second));
+		}
+		if(canMoveDown(currentLocation)){
+			downDistance = abs(mapHeights.at(currentLocation.first+1).at(currentLocation.second)
+			 - mapHeights.at(currentLocation.first).at(currentLocation.second));
+		}
+		if(canMoveDiagonal(currentLocation)){
+			diagonalDistance = abs(mapHeights.at(currentLocation.first+1).at(currentLocation.second+1)
+			 - mapHeights.at(currentLocation.first).at(currentLocation.second));	
+		}
+		if(canMoveDiagonal(currentLocation)){
+			minDistance = std::min({downDistance, rightDistance, diagonalDistance});			
+			if(minDistance == downDistance){				
+				this->moveDown(currentLocation);			
+			}		
+			else if(minDistance == rightDistance){										
+				this->moveRight(currentLocation);
+			}
+			else if(minDistance == diagonalDistance){				
+				this->moveDiagonal(currentLocation);
+			}
+		}
+		else if(canMoveRight(currentLocation)){
+			minDistance = rightDistance;			
+			this->moveRight(currentLocation);
+		}
+		else if(canMoveDown(currentLocation)){			
+			minDistance = downDistance;
+			this->moveDown(currentLocation);
+		}		
+		this->sumOfHeights += minDistance;
+		route.push_back(currentLocation);
+	}
+}
+void Map::findRoute(vector<vector<int>>& mapHeights, pair<int,int>& currentlocation, bool hasDiagonalMovement){
+	return hasDiagonalMovement ? findRouteWithDiagonalMovement(mapHeights,currentLocation) : findRouteWithoutDiagonalMovement(mapHeights,currentLocation);
+}
+void Map::showRoute(bool hasDiagonalMovement){
+	this->currentLocation = make_pair(0,0);
+	this->findRoute(this->mapHeights, this->currentLocation, hasDiagonalMovement);
 	vector<vector<char>> route;	
+	route.clear();
 	vector<char> rowsOfRoute;
 	///////////////////// Make graphical map ////////////////////
 	for(int i {0}; i != this->mapDimension; i++){
@@ -92,11 +144,19 @@ void Map::showRoute(){
 bool Map::canMoveDown(pair<int,int>& currentlocation){
 	return currentLocation.first < (this->mapDimension - 1);
 }	
-bool Map::canMoveRight(pair<int,int>& location){
+bool Map::canMoveRight(pair<int,int>& currentlocation){
 	return currentLocation.second < (this->mapDimension - 1);
+}
+bool Map::canMoveDiagonal(pair<int,int>& currentLocation){
+	return currentLocation.second < (this->mapDimension - 1) &&
+		   currentLocation.first < (this->mapDimension - 1);	
 }
 void Map::moveDown(pair<int,int>& currentLocation){
 	currentLocation.first += 1;
+}
+void Map::moveDiagonal(pair<int,int>& currentLocation){
+	currentLocation.first += 1;	
+	currentLocation.second += 1;
 }
 void Map::moveRight(pair<int,int>& currentlocation){
 	currentLocation.second += 1;

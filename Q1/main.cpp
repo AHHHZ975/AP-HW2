@@ -7,6 +7,9 @@ int main(){
 	cin >> n;
 	Map map{n};	
 	map.showMap();
-	map.showRoute();
+	////////////////////// Without diagonal movement ////////////////
+	map.showRoute(0);
+	////////////////////// With diagonal movement ////////////////
+	map.showRoute(1);
 	return 0;
 }
