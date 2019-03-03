@@ -2,11 +2,10 @@
 
 int main(){
 	srand(time(NULL));
-	int n;
+	int n;	
 	cout << "Please enter the dimension of map: " << endl;
 	cin >> n;
-	Map map{n};
-	cout << n << endl;
+	Map map{n};	
 	map.showMap();
 	return 0;
 }

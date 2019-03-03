@@ -24,6 +24,6 @@ public:
 private:
 	int mapArea;
 	int mapDimension;
-	vector<int> mapHeights;
+	vector<vector<int>> mapHeights;
 	
 };
