@@ -29,10 +29,11 @@ void Map::showMap(){
 
 void Map::findRoute(vector<vector<int>>& mapHeights, pair<int,int>& currentlocation){
 	this->route.clear();
+	this->sumOfHeights = 0;
 	int minDistance = mapHeights.at(0).at(0);
 	this->route.push_back(make_pair(0,0));
 	int rightDistance{}, downDistance{};
-	while(currentLocation.first != (this->mapDimension-1) && currentLocation.second != (this->mapDimension-1)){		
+	while(currentLocation.first != (this->mapDimension-1) || currentLocation.second != (this->mapDimension-1)){		
 		if(canMoveRight(currentLocation)){
 			rightDistance = abs(mapHeights.at(currentLocation.first).at(currentLocation.second+1)
 			 - mapHeights.at(currentLocation.first).at(currentLocation.second));
@@ -43,33 +44,50 @@ void Map::findRoute(vector<vector<int>>& mapHeights, pair<int,int>& currentlocat
 		}
 		if(canMoveRight(currentLocation) && canMoveDown(currentLocation)){
 			if(downDistance < rightDistance){
-				minDistance = downDistance;
+				minDistance = downDistance;				
 				this->moveDown(currentLocation);			
 			}		
 			else{				
-				minDistance = rightDistance;
+				minDistance = rightDistance;				
 				this->moveRight(currentLocation);
 			}	
 		}
 		else if(canMoveRight(currentLocation)){
-			minDistance = rightDistance;
+			minDistance = rightDistance;			
 			this->moveRight(currentLocation);
 		}
-		else if(canMoveDown(currentLocation)){
+		else if(canMoveDown(currentLocation)){			
 			minDistance = downDistance;
 			this->moveDown(currentLocation);
 		}
-		
+		this->sumOfHeights += minDistance;
 		route.push_back(currentLocation);
-	}	
-	route.push_back(make_pair(this->mapDimension-1, this->mapDimension-1));
+	}
 	
 }
 void Map::showRoute(){
 	this->findRoute(this->mapHeights, this->currentLocation);
-	for(size_t i {0}; i != this->route.size(); i++){
-		cout << this->route.at(i).first << " " << this->route.at(i).second << endl;
+	vector<vector<char>> route;	
+	vector<char> rowsOfRoute;
+	///////////////////// Make graphical map ////////////////////
+	for(int i {0}; i != this->mapDimension; i++){
+		rowsOfRoute.clear();
+		for(int j {0}; j != this->mapDimension; j++){
+			rowsOfRoute.push_back('-');
+		}
+		route.push_back(rowsOfRoute);
 	}
+	for(size_t i {0}; i != this->route.size(); i++){
+		route.at(this->route.at(i).first).at(this->route.at(i).second) = '*';
+	}
+	cout << " Distance: " << this->sumOfHeights << endl;
+	////////////////// Show graphical map /////////////////////
+	for(int i {0}; i != this->mapDimension; i++){
+		for(int j {0}; j != this->mapDimension; j++){
+			cout << setfill(' ') << setw(3) << route.at(i).at(j);
+		}
+		cout << endl;		
+	}	
 }
 bool Map::canMoveDown(pair<int,int>& currentlocation){
 	return currentLocation.first < (this->mapDimension - 1);

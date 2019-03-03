@@ -26,6 +26,7 @@ public:
 	bool canMoveDown(pair<int,int>& currentLocation);
 private:	
 	vector<pair<int,int>> route;
+	int sumOfHeights;
 	int mapDimension;
 	pair<int,int> currentLocation;
 	vector<vector<int>> mapHeights;
