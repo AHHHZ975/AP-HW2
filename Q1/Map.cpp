@@ -35,6 +35,7 @@ void Map::findRouteWithoutDiagonalMovement(vector<vector<int>>& mapHeights, pair
 	this->route.clear();
 	this->sumOfHeights = 0;
 	int minDistance = mapHeights.at(0).at(0);
+	bool isNextLocationGoal = false;
 	this->route.push_back(make_pair(0,0));
 	int rightDistance{}, downDistance{};
 	while(currentLocation.first != (this->mapDimension-1) || currentLocation.second != (this->mapDimension-1)){		
@@ -49,20 +50,20 @@ void Map::findRouteWithoutDiagonalMovement(vector<vector<int>>& mapHeights, pair
 		if(canMoveRight(currentLocation) && canMoveDown(currentLocation)){
 			if(downDistance < rightDistance){
 				minDistance = downDistance;				
-				this->moveDown(currentLocation);			
+				this->moveDown(currentLocation, isNextLocationGoal);			
 			}		
 			else{				
 				minDistance = rightDistance;				
-				this->moveRight(currentLocation);
+				this->moveRight(currentLocation, isNextLocationGoal);
 			}	
 		}
 		else if(canMoveRight(currentLocation)){
 			minDistance = rightDistance;			
-			this->moveRight(currentLocation);
+			this->moveRight(currentLocation, isNextLocationGoal);
 		}
 		else if(canMoveDown(currentLocation)){			
 			minDistance = downDistance;
-			this->moveDown(currentLocation);
+			this->moveDown(currentLocation, isNextLocationGoal);
 		}
 		this->sumOfHeights += minDistance;
 		route.push_back(currentLocation);
@@ -73,6 +74,7 @@ void Map::findRouteWithDiagonalMovement(vector<vector<int>>& mapHeights, pair<in
 	this->route.clear();
 	this->sumOfHeights = 0;
 	int minDistance = mapHeights.at(0).at(0);
+	bool isNextLocationGoal = false;
 	this->route.push_back(make_pair(0,0));	
 	int rightDistance{}, downDistance{}, diagonalDistance{};
 	while(currentLocation.first != (this->mapDimension-1) || currentLocation.second != (this->mapDimension-1)){		
@@ -91,22 +93,22 @@ void Map::findRouteWithDiagonalMovement(vector<vector<int>>& mapHeights, pair<in
 		if(canMoveDiagonal(currentLocation)){
 			minDistance = std::min({downDistance, rightDistance, diagonalDistance});			
 			if(minDistance == downDistance){				
-				this->moveDown(currentLocation);			
+				this->moveDown(currentLocation, isNextLocationGoal);			
 			}		
 			else if(minDistance == rightDistance){										
-				this->moveRight(currentLocation);
+				this->moveRight(currentLocation, isNextLocationGoal);
 			}
 			else if(minDistance == diagonalDistance){				
-				this->moveDiagonal(currentLocation);
+				this->moveDiagonal(currentLocation, isNextLocationGoal);
 			}
 		}
 		else if(canMoveRight(currentLocation)){
 			minDistance = rightDistance;			
-			this->moveRight(currentLocation);
+			this->moveRight(currentLocation, isNextLocationGoal);
 		}
 		else if(canMoveDown(currentLocation)){			
 			minDistance = downDistance;
-			this->moveDown(currentLocation);
+			this->moveDown(currentLocation, isNextLocationGoal);
 		}		
 		this->sumOfHeights += minDistance;
 		route.push_back(currentLocation);
@@ -115,6 +117,13 @@ void Map::findRouteWithDiagonalMovement(vector<vector<int>>& mapHeights, pair<in
 void Map::findRoute(vector<vector<int>>& mapHeights, pair<int,int>& currentlocation, bool hasDiagonalMovement){
 	return hasDiagonalMovement ? findRouteWithDiagonalMovement(mapHeights,currentLocation) : findRouteWithoutDiagonalMovement(mapHeights,currentLocation);
 }
+
+
+void Map::findAllRoutes(vector<vector<int>>& mapHeights, pair<int,int>& currentlocation){  
+
+}
+
+
 void Map::showRoute(bool hasDiagonalMovement){
 	this->currentLocation = make_pair(0,0);
 	this->findRoute(this->mapHeights, this->currentLocation, hasDiagonalMovement);
@@ -151,15 +160,28 @@ bool Map::canMoveDiagonal(pair<int,int>& currentLocation){
 	return currentLocation.second < (this->mapDimension - 1) &&
 		   currentLocation.first < (this->mapDimension - 1);	
 }
-void Map::moveDown(pair<int,int>& currentLocation){
-	currentLocation.first += 1;
+bool Map::isGoal(pair<int,int>& location){
+	return (location.first == this->mapDimension-1) &&
+		   (location.second == this->mapDimension-1);
 }
-void Map::moveDiagonal(pair<int,int>& currentLocation){
+void Map::moveDown(pair<int,int>& currentLocation, bool& isNextLocationGoal){
+	currentLocation.first += 1;
+	if(this->isGoal(currentLocation)){
+		isNextLocationGoal = true;
+	}
+}
+void Map::moveDiagonal(pair<int,int>& currentLocation, bool& isNextLocationGoal){
 	currentLocation.first += 1;	
 	currentLocation.second += 1;
+	if(this->isGoal(currentLocation)){
+		isNextLocationGoal = true;
+	}
 }
-void Map::moveRight(pair<int,int>& currentlocation){
+void Map::moveRight(pair<int,int>& currentlocation, bool& isNextLocationGoal){
 	currentLocation.second += 1;
+	if(this->isGoal(currentLocation)){
+		isNextLocationGoal = true;
+	}
 }
 
 Map::~Map(){

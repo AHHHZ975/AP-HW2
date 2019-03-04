@@ -19,16 +19,19 @@ public:
 	Map(int n);
 	~Map();
 	void showMap();
+	void findAllRoutes(vector<vector<int>>& mapHeights, pair<int,int>& currentlocation);
+	void findAllRoutesUtil(vector<vector<int>>& mapHeights, pair<int,int>& currentlocation);
 	void findRoute(vector<vector<int>>& mapHeights, pair<int,int>& currentlocation, bool hasDiagonalMovement);
 	void findRouteWithoutDiagonalMovement(vector<vector<int>>& mapHeights, pair<int,int>& currentlocation);
 	void findRouteWithDiagonalMovement(vector<vector<int>>& mapHeights, pair<int,int>& currentlocation);
 	void showRoute(bool hasDiagonalMovement);
-	void moveRight(pair<int,int>& currentLocation);
-	void moveDiagonal(pair<int,int>& currentLocation);
-	void moveDown(pair<int,int>& currentLocation);
+	void moveRight(pair<int,int>& currentLocation, bool& isNextLocationGoal);
+	void moveDiagonal(pair<int,int>& currentLocation, bool& isNextLocationGoal);
+	void moveDown(pair<int,int>& currentLocation, bool& isNextLocationGoal);
 	bool canMoveRight(pair<int,int>& currentLocation);	
 	bool canMoveDiagonal(pair<int,int>& currentLocation);	
 	bool canMoveDown(pair<int,int>& currentLocation);
+	bool isGoal(pair<int,int>& location);
 private:	
 	vector<pair<int,int>> route;
 	int sumOfHeights;
