@@ -8,11 +8,11 @@ using std::endl;
 
 class libArr{
 public:
-	void createArray(int n);
+	void createArray();
 	void showArray();
-	libArr();
+	libArr(long long int n);
 	~libArr();
 private:
-	int* myArray = NULL;
-	int myArraySize;
+	long long int* myArray = NULL;
+	long long int myArraySize;
 };

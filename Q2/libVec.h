@@ -7,11 +7,12 @@ using std::endl;
 
 class libVec{
 public:
-	void createVector(int n);
+	void createVector();
 	void showVector();
-	libVec();
+	libVec(long long int n);
 	~libVec();
 private:
-	vector<int> myVector;
+	vector<long long int> myVector;
+	long long int myVectorSize;
 	
 };

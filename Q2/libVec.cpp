@@ -3,18 +3,18 @@
 
 #include "libVec.h"
 
-libVec::libVec(){
-
+libVec::libVec(long long int n){	
+	this->myVectorSize = n;
 }
 
-void libVec::createVector(int n){		
-	for(int i{}; i != n; i++){
+void libVec::createVector(){		
+	for(long long int i{}; i != this->myVectorSize; i++){		
 		this->myVector.push_back(i);		
 	}	
 }
 
 void libVec::showVector(){
-	for(size_t i{}; i != this->myVector.size(); i++){
+	for(long long int i{}; i != this->myVectorSize; i++){
 		cout << this->myVector.at(i) << " ";
 	}
 	cout << endl;
