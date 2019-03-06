@@ -5,6 +5,7 @@
 
 Map::Map(int n){
 	vector<int> rowsOfMap;
+	this->allRoutes.clear();
 	this->mapDimension = n;
 	this->currentLocation = make_pair(0,0);
 	///////////////////// Create the map ////////////////	
@@ -26,10 +27,6 @@ void Map::showMap(){
 		cout << endl;		
 	}	
 }
-bool comp(int a, int b) 
-{ 
-    return (a < b); 
-} 
 
 void Map::findRouteWithoutDiagonalMovement(vector<vector<int>>& mapHeights, pair<int,int>& currentlocation){
 	this->route.clear();
@@ -119,11 +116,64 @@ void Map::findRoute(vector<vector<int>>& mapHeights, pair<int,int>& currentlocat
 }
 
 
-void Map::findAllRoutes(vector<vector<int>>& mapHeights, pair<int,int>& currentlocation){  
-
+void Map::findAllRoutes(int currentRow, int currentColumn, vector<int> aRoute){  			
+	//////// When we reached at the right of the map /////////////
+	if(currentRow == this->mapDimension - 1){			
+			for (int i = currentColumn; i < this->mapDimension; i++) {				
+				aRoute.push_back(mapHeights.at(currentRow).at(i));
+			}
+			this->allRoutes.push_back(aRoute);
+			return;
+	}
+	//////// When we reached at the bottom of the map /////////////
+	else if(currentColumn == this->mapDimension - 1){		
+		for (int i = currentRow; i < this->mapDimension; i++) {			
+			aRoute.push_back(mapHeights.at(i).at(currentColumn));
+		}
+		this->allRoutes.push_back(aRoute);
+		return;
+	}	
+	aRoute.push_back(mapHeights.at(currentRow).at(currentColumn));
+	findAllRoutes(currentRow + 1, currentColumn, aRoute); // For down movement
+	findAllRoutes(currentRow, currentColumn + 1, aRoute); // For right movement
+	//findAllRoutes(currentRow + 1, currentColumn + 1, path); // For diagonal movement
 }
+void Map::findMinimumRoute(){
+	this->routesHeight.clear();
+	this->sumOfHeights = 0;
+	pair<int, int> minValue;	
+	for(size_t i{}; i != this->allRoutes.size(); i++){
+		for(size_t j{}; j != this->allRoutes.at(i).size(); j++){
+			if(j != this->allRoutes.at(i).size() - 1){
+				this->sumOfHeights += abs(this->allRoutes.at(i).at(j) - this->allRoutes.at(i).at(j+1));
+			}			
+		}
+		this->routesHeight.push_back(make_pair(this->sumOfHeights,i));
+		sumOfHeights = 0;
+	}
+	minValue = this->routesHeight.at(0);
+	for(size_t i{}; i != this->routesHeight.size(); i++){
+		for(size_t j{i+1}; j != this->routesHeight.size(); j++){
+			if(this->routesHeight.at(j).first < minValue.first){
+				minValue = this->routesHeight.at(j);
+			}
+		}
+	}
 
 
+	for(size_t i{}; i != this->allRoutes.at(minValue.second).size(); i++){
+		cout << this->allRoutes.at(minValue.second).at(i) << " ";		
+	}
+	cout << endl;
+}	
+void Map::showAllRoutes(){
+	for(size_t i{}; i != this->allRoutes.size(); i++){
+		for(size_t j{}; j != this->allRoutes.at(i).size(); j++){
+			cout << this->allRoutes.at(i).at(j) << " ";
+		}
+		cout << endl;
+	}
+}
 void Map::showRoute(bool hasDiagonalMovement){
 	this->currentLocation = make_pair(0,0);
 	this->findRoute(this->mapHeights, this->currentLocation, hasDiagonalMovement);
