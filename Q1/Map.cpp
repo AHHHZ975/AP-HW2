@@ -165,8 +165,9 @@ void Map::findMinimumRoute(){
 		cout << this->allRoutes.at(minValue.second).at(i) << " ";		
 	}
 	cout << endl;
+	cout << "The minimum distance is: " << minValue.first << endl;
 }	
-void Map::showAllRoutes(){
+void Map::showAllRoutes(){	
 	for(size_t i{}; i != this->allRoutes.size(); i++){
 		for(size_t j{}; j != this->allRoutes.at(i).size(); j++){
 			cout << this->allRoutes.at(i).at(j) << " ";

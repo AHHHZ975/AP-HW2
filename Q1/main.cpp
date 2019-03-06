@@ -24,7 +24,7 @@ int main(){
 	cout << "All paths are: " << endl;
 	map.showAllRoutes();
 	cout << endl;
-	cout << "The minimum path is: " << endl;
+	cout << "The minimum path is:(With right && down movement) " << endl;
 	map.findMinimumRoute();
 	return 0;
 }
