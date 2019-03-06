@@ -24,28 +24,31 @@ void SimplifyDatabase::readDatabase(){
 	database.close();
 }
 
-void SimplifyDatabase::showDBInformation(){
+void SimplifyDatabase::showDatabaseInformation(){
+	cout << "////////////// The input  database is: ////////////////" << endl;
 	for(size_t i{}; i != this->databaseInformation.size(); i++){
 		cout << this->databaseInformation.at(i) << endl;
+	}	
+}
+
+void SimplifyDatabase::showNewDatabaseInformation(){
+	cout << "////////////// The ouput  database is: ////////////////" << endl;
+	for(size_t i{}; i != this->databaseNewInformation.size(); i++){
+		cout << this->databaseNewInformation.at(i);
 	}	
 }
 
 void SimplifyDatabase::parseDatabaseInformation(){		
 	vector<pair<int,int>> differentProducts;
 	vector<pair<int,int>> differentCustomers;
-	vector<pair<int,int>> customersInSameDay;
-	vector<pair<int,int>> productsInSameDay;
-	vector<int> sameProductsIndex;
-	vector<int> sameCustomersIndex;
 	vector<int> sameDaysIndex;
 	int index{};	
-	this->days.clear();
-	differentDays.clear();
+	int counter {};
 	sameDaysIndex.clear();
-	productsInSameDay.clear();
-	customersInSameDay.clear();
 	differentProducts.clear();
 	differentCustomers.clear();
+	this->differentDays.clear();
+	this->days.clear();
 	this->productCount.clear();
 	this->customerCount.clear();
 	//////////////// Get the date && products_id && cutomers_id from database ///////////
@@ -57,17 +60,15 @@ void SimplifyDatabase::parseDatabaseInformation(){
 	///////////////////// Different dates in database ///////////
 	for(size_t i{}; i != this->days.size(); i++){
 		for(size_t j{i+1}; j != this->days.size(); j++){
-			if(!this->isInTheList(differentDays, this->days.at(j), index)){
-				differentDays.push_back(this->days.at(j));										
+			if(!this->isInTheList(this->differentDays, this->days.at(j), index)){
+				this->differentDays.push_back(this->days.at(j));										
 			}
 		}		
 	}
 	///////////////// Detect && categorize the same dates ////////
 	for(size_t i{}; i != this->days.size(); i++){
-		if(this->isInTheList(differentDays, this->days.at(i), index)){
-			sameDaysIndex.push_back(index);
-			customersInSameDay.push_back(std::make_pair(this->productsID.at(i), index));
-			productsInSameDay.push_back(std::make_pair(this->customersID.at(i), index));
+		if(this->isInTheList(this->differentDays, this->days.at(i), index)){
+			sameDaysIndex.push_back(index);			
 		}
 	}	
 	/////////////// Different products && cutomers in same days /////////////
@@ -83,36 +84,27 @@ void SimplifyDatabase::parseDatabaseInformation(){
 			}
 		}		
 	}
-	///////////////////////////////////	
-	int counter {};
+	///////////////////////////////////		
 	for(size_t i{}; i != differentDays.size(); i++){
 		counter = 0;
 		for(size_t j{}; j != differentCustomers.size(); j++){
-			if(differentCustomers.at(j).second == i){
+			if(differentCustomers.at(j).second == int(i)){
 				counter++;
 			}
 		}
 		this->customerCount.push_back(counter);
 	}	
-	for(size_t i{}; i != differentDays.size(); i++){
+	for(size_t i{}; i != this->differentDays.size(); i++){
 		counter = 0;
 		for(size_t j{}; j != differentProducts.size(); j++){
-			if(differentProducts.at(j).second == i){
+			if(differentProducts.at(j).second == int(i)){
 				counter++;
 			}
 		}
 		this->productCount.push_back(counter);
 	}	
 	///////////////////////////
-	for(size_t i{}; i != this->differentDays.size(); i++){
-		cout << this->differentDays.at(i) << endl;
-	}
-	for(size_t i{}; i != this->productCount.size(); i++){
-		cout << this->productCount.at(i) << endl;
-	}
-	for(size_t i{}; i != this->customerCount.size(); i++){
-		cout << this->customerCount.at(i) << endl;
-	}
+	
 }
 
 void SimplifyDatabase::makePacket(){

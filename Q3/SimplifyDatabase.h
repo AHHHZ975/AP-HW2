@@ -16,7 +16,8 @@ public:
 	SimplifyDatabase();
 	~SimplifyDatabase();
 	void readDatabase();
-	void showDBInformation();
+	void showDatabaseInformation();
+	void showNewDatabaseInformation();
 	void parseDatabaseInformation();
 	void writeNewDatabase();
 	bool isInTheList(vector<string>& aList, string& element, int& index);
