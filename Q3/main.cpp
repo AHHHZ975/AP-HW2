@@ -5,5 +5,7 @@ int main(){
 	simpleDB.readDatabase();
 	simpleDB.showDBInformation();
 	simpleDB.parseDatabaseInformation();
+	simpleDB.makePacket();
+	simpleDB.writeNewDatabase();
 	return 0;
 }
