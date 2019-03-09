@@ -101,3 +101,22 @@ border-right: solid;
 border-bottom: solid;
 border-width: 1px;
 }
+
+.contact{	
+  width: 40px;    
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.currentContact {
+
+    border-bottom: solid;
+    border-bottom-width: medium;
+    margin-bottom: 40px;
+    padding-bottom: 11px;
+    border-width: 1px;
+
+}
+
+.footer{
+	border-radius: 0px 0px 10px 10px;
+}
