@@ -87,3 +87,17 @@ body, html{
     border-bottom: 1px solid #e0e0e0;
 
 }
+
+
+ul:hover li{
+  opacity:0.5;
+}
+ul li:hover{
+  opacity:1;  
+}
+
+.search{
+border-right: solid;
+border-bottom: solid;
+border-width: 1px;
+}
