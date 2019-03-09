@@ -3,7 +3,7 @@
   height: 100%; /* 100% Full-height */ 
   width: 0; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Stay on top */
+  z-index: 10; /* Stay on top */
   top: 0;
   left: 0;
   background-color: white; /* Black*/
@@ -53,6 +53,7 @@
   border-width: 1.5px;
   border-radius:10px 10px 0px 0;
   padding: 20px;
+  margin-top: 200px;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
@@ -60,3 +61,8 @@
   .sidebar {padding-top: 15px;}
   .sidebar a {font-size: 15px;}
 } 
+.row .col.s12 {
+    
+    border-color: grey;        
+    border-width: 0.5px;
+}

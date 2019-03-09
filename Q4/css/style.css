@@ -13,4 +13,77 @@ body, html{
 
 .input-field{
 	background-color: white;
+	z-index: 1;
+}
+.row {	
+	margin-bottom: 0px;	
+    background-color: white;
+}
+
+.message-box{
+	border-radius: 0px 0px 10px 10px;
+
+}
+
+
+.z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-small, .btn-floating, .dropdown-content, .collapsible, .sidenav {
+
+    -webkit-box-shadow: 0 0px 0px 0 rgba(0,0,0,0),0 0px 0px 0px rgba(0,0,0,0),0 0px 0px 0 rgba(0,0,0,0);
+    box-shadow: 0 0px 0px 0 rgba(0,0,0,0),0 0px 0px 0px rgba(0,0,0,0),0 0px 0px 0 rgba(0,0,0,0);
+
+}
+
+
+.row .col {	
+    padding: 0 0;   
+}
+
+.btn, .btn-large, .btn-small, .btn-flat {
+
+    border: none;
+    border-radius: 2px;
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 16px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+
+}
+
+.btn, .btn-large, .btn-small {
+    
+    color: black;
+    background-color: white;   
+    letter-spacing: .5px;
+    transition: background-color .2s ease-out;
+    cursor: pointer;
+
+}
+.btn:hover, .btn-large:hover, .btn-small:hover {
+	z-index: 0;
+    background-color: white;
+
+}
+.btn:focus, .btn-large:focus, .btn-small:focus, .btn-floating:focus {
+	z-index: 0;
+    background-color: white;
+}
+.input-field {
+    position: relative;
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+}
+
+.collection .collection-item.avatar {
+    min-height: 50px;    
+    position: relative;
+        background-color: #fff;
+    line-height: 1.5rem;
+    padding: 10px 72px 10px;
+       
+    margin: 0;
+    border-bottom: 1px solid #e0e0e0;
+
 }

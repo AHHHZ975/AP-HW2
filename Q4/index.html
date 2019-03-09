@@ -11,56 +11,120 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 	    <link href="css/style.css" rel="stylesheet" />
-	    <link href="css/hamburgur.css" rel="stylesheet" />
+	    <link href="css/hamburgur.css" rel="stylesheet" />	    	   
     </head>
 
-    <body>    	    
+    <body>    	           
+	 	<div class="row">
+	 	</div>
 	 	<div class="container">
-    	<!-- Page Content goes here -->	   	
-		    <div class="row">		      
-		      	<div class="col s12">			      	
-  		    		<div id="mySidebar" class="sidebar">
-					  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-					  <a href="#">About</a>
-					  <a href="#">Services</a>
-					  <a href="#">Clients</a>
-					  <a href="#">Contact</a>
-					</div>
-					<div id="main">
-					  <button class="openbtn" onclick="openNav()">&#9776; Telegram</button>					  
-					</div>		      
-	  		  	</div>		      	
-		    </div>
-		    <dir class="row">
-		    	<div class="col s4">
-			      	<nav>
-					    <div class="grey nav-wrapper">
-					      <form>
-					        <div class="input-field">					   	
-					          <input id="search" type="search" placeholder="Search" required>
-						          <label class="label-icon" for="search">
-						          	<i class="material-icons">search</i>
-						          </label>					          
-					        </div>
-					      </form>
-				    	</div>
-				  	</nav>
-		      	</div>
-		      	<div class="col s7">3</div>		      
-		    </div>
+    	<!-- Page Content goes here -->	   			    		     	      	
+	    	<!-- Navbar goes here -->
+	    	<div id="mySidebar" class="sidebar">
+				  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+				  <a href="#">About</a>
+				  <a href="#">Services</a>
+				  <a href="#">Clients</a>
+				  <a href="#">Contact</a>
+			</div>
+			<div id="main">
+			  <button class="openbtn" onclick="openNav()">&#9776;Telegram</button>					  
+			</div>		 
+		    <!-- Page Layout here -->
+		    <div class="row">
+		      	<div class="col s12 m6 l4">
+		      		<div class="col s12">
+		        		<nav>
+						    <div class="grey nav-wrapper">
+						      <form>
+						        <div class="input-field">					   	
+						          <input id="search" type="search" placeholder="Search" required>
+							          <label class="label-icon" for="search">
+							          	<i class="material-icons">search</i>
+							          </label>					          
+						        </div>
+						      </form>
+					    	</div>
+					  	</nav>
+				  	</div>
+				  	<div class="col s12">
+				        <ul id="dropdown2" class="dropdown-content">
+						    <li><a href="#!">one<span class="badge">1</span></a></li>
+						    <li><a href="#!">two<span class="new badge">1</span></a></li>
+						    <li><a href="#!">three</a></li>
+	  					</ul>
+	  					<a class="btn dropdown-trigger" href="#!" data-target="dropdown2">Dropdown
+	  						<i class="material-icons right">aexpand_more</i>
+	  					</a>
+	  				</div>			        
+			  	 	<div class="col s12">
+	  			  	 	<ul class="collection">
+						    <li class="collection-item avatar">
+						      <img src="imgs/AHZ.jpg" alt="AHZ" class="circle">
+						      <span class="title">Amir Hossein Zamani</span>
+						      <p>Hi!, How R U?</p>					      
+						    </li>
+						    <li class="collection-item avatar">
+						      <img src="imgs/Garch.jpg" alt="Garch" class="circle">
+						      <span class="title">Saleh Geshani</span>
+						      <p>Typing...</p>					      
+						    </li>
+						    <li class="collection-item avatar">
+						      <img src="imgs/feedback02.jpg" alt="Exhaust" class="circle">
+						      <span class="title">Mohsen Jadidi</span>
+						      <p>Help me please!</p>					      
+						    </li>					    
+						     <li class="collection-item avatar">
+						      <img src="imgs/feedback04.jpg" alt="Exhaust" class="circle">
+						      <span class="title">Alex Vidal</span>
+						      <p>I'll be there</p>					      
+						    </li>	
+						     <li class="collection-item avatar">
+						      <img src="imgs/feedback03.jpg" alt="Exhaust" class="circle">
+						      <span class="title">Hannah Baker</span>
+						      <p>On the way man!</p>					      
+						    </li>	
+						</ul>
+			  	 	</div> 
+			  	 	<div class="col s12">
+				        <ul id="dropdown2" class="dropdown-content">
+						    <li><a href="#!">one<span class="badge">1</span></a></li>
+						    <li><a href="#!">two<span class="new badge">1</span></a></li>
+						    <li><a href="#!">three</a></li>
+	  					</ul>
+	  					<a class="btn dropdown-trigger" href="#!" data-target="dropdown2">Dropdown
+	  						<i class="material-icons right">chevron_right</i>
+	  					</a>
+	  				</div> 			  	 
+	      		</div>
+	      		<div class="col s12 m6 l8">		    
+		        	<ul class="collection">
+						    <li class="collection-item avatar">
+						      <img src="imgs/AHZ.jpg" alt="AHZ" class="circle">
+						      <span class="title">Amir Hossein Zamani</span>						      
+						    </li>
+						</ul>
+	     	 	</div>	     	 	
+	    	</div>
+	    	<div class="row">
+	    		<div class="col s4">
+	    		</div>
+			    <div class="message-box col s8">			      
+			      	<i class="material-icons prefix">attach_file</i>
+			          <i class="material-icons postfix">insert_emoticon</i>
+			          
+			        <div class="input-field col s12">
+			          <input type="text" id="autocomplete-input" class="autocomplete" placeholder="Type your message...">
+			        </div>			      
+			    </div>
+			  </div>
 	    </div>
 	    	
-      
-	   
-
-
-
-
-
 
       <!--JavaScript at end of body for optimized loading-->
       <script type="text/javascript" src="js/materialize.min.js"></script>
       <script src="js/myscrypt.js"></script>
+
             
     </body>
   </html>
